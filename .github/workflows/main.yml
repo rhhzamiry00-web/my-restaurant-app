@@ -15,12 +15,14 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y git zip unzip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
+          sudo apt install -y git zip unzip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev python3-dev
           pip install --upgrade pip
           pip install Cython==0.29.33 buildozer
 
       - name: Build with Buildozer
         run: |
+          # دادن اجازه دسترسی و بیلد گرفتن
+          chmod +x-R .
           yes | buildozer -v android debug
         env:
           ACCEPT_SDK_LICENSE: "True"
@@ -28,5 +30,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: My-App-APK
+          name: Restaurant-App
           path: bin/*.apk
